@@ -10,6 +10,7 @@ function App() {
     const url = window.location.href;
     if (url.indexOf("code") === -1) return null;
     const code = url.substring(url.indexOf("code") + 5).slice(0, -2);
+    console.log("code", code);
     setCode(code);
   }, []);
 
@@ -25,7 +26,8 @@ function App() {
         redirect_uri: "https://instagram-basic-display-api.vercel.app/",
         code: code,
       })
-      .then((response) => console.log("resoponse on post", response));
+      .then((response) => console.log("resoponse on post", response))
+      .catch((err) => console.log("error", error));
   }, [code]);
 
   // https://api.instagram.com/oauth/access_token \
