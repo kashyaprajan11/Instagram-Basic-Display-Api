@@ -1,17 +1,40 @@
 import { useState, useEffect } from "react";
 import { Box, Stack, Button, Typography, TextField } from "@mui/material";
+import axios from "axios";
+
+const CLIENT_ID = "612567580316276";
+const CLIENT_SECRET = "ccbaee38fb6dbef29ed3828a68f2faf6";
 
 function App() {
   useEffect(() => {
     const url = window.location.href;
-
     if (url.indexOf("code") === -1) return null;
-    const code = url.substring(url.indexOf("code") + 5).slice(0,-2);
-
-    console.log("code is", code);
-
-    return code;
+    const code = url.substring(url.indexOf("code") + 5).slice(0, -2);
+    setCode(code);
   }, []);
+
+  const [code, setCode] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+
+  useEffect(() => {
+    axios
+      .post("https://api.instagram.com/oauth/access_token", {
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        grant_type: "authorization_code",
+        redirect_uri: "https://instagram-basic-display-api.vercel.app/",
+        code: code,
+      })
+      .then((response) => console.log("resoponse on post", response));
+  }, [code]);
+
+  // https://api.instagram.com/oauth/access_token \
+  // -F client_id=684477648739411 \
+  // -F client_secret=eb8c7... \
+  // -F grant_type=authorization_code \
+  // -F redirect_uri=https://socialsizzle.herokuapp.com/auth/ \
+  // -F code=AQDp3TtBQQ...
+
   const getInstagramAccessCode = () => {
     let code = "";
     window.location.replace(
