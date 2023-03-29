@@ -6,7 +6,7 @@ function App() {
     const url = window.location.href;
 
     if (url.indexOf("code") === -1) return null;
-    const code = url.substring(url.indexOf("code") + 5);
+    const code = url.substring(url.indexOf("code") + 5).slice(0,-2);
 
     console.log("code is", code);
 
