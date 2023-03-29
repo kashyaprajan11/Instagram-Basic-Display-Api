@@ -27,7 +27,7 @@ function App() {
         code: code,
       })
       .then((response) => console.log("resoponse on post", response))
-      .catch((err) => console.log("error", error));
+      .catch((error) => console.log("error", error));
   }, [code]);
 
   // https://api.instagram.com/oauth/access_token \
