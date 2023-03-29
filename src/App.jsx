@@ -3,7 +3,14 @@ import { Box, Stack, Button, Typography, TextField } from "@mui/material";
 
 function App() {
   useEffect(() => {
-    console.log(window.location.href);
+    const url = window.location.href;
+
+    if (url.indexOf("code") === -1) return null;
+    const code = url.substring(url.indexOf("code") + 5);
+
+    console.log("code is", code);
+
+    return code;
   }, []);
   const getInstagramAccessCode = () => {
     let code = "";
