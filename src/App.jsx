@@ -19,13 +19,19 @@ function App() {
 
   useEffect(() => {
     axios
-      .post("https://api.instagram.com/oauth/access_token", {
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        grant_type: "authorization_code",
-        redirect_uri: "https://instagram-basic-display-api.vercel.app/",
-        code: code,
-      })
+      .post(
+        "https://api.instagram.com/oauth/access_token",
+        {
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          grant_type: "authorization_code",
+          redirect_uri: "https://instagram-basic-display-api.vercel.app/",
+          code: code,
+        },
+        {
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      )
       .then((response) => console.log("resoponse on post", response))
       .catch((error) => console.log("error", error));
   }, [code]);
